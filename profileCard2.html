@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Profile Card Grid</title>
+    <!-- Font Awesome for icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+      }
+
+      body {
+        display: flex;
+        flex-direction: column; /* stack navbar on top of grid */
+        min-height: 100vh;
+        background: #f5f5f5;
+        padding: 0; /* remove padding, we'll add per-section */
+      }
+      /* 🔹 Navbar */
+      .navbar {
+        width: 100%;
+        background: #fff;
+        padding: 15px 40px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        margin-bottom: 50px;
+      }
+
+      .navbar .logo img {
+        height: 50px; /* adjust size of logo */
+        width: auto; /* keep aspect ratio */
+        display: block;
+      }
+      .nav-center-text {
+        font-size: 35px;
+        font-weight: bold;
+        font-family: "Poppins", sans-serif;
+        letter-spacing: 2px;
+        color: #333;
+        flex: 1;
+        text-align: center;
+      }
+      .nav-btn {
+        padding: 10px 20px;
+        background: #4223db;
+        color: #fff;
+        border: none; /* no border by default */
+        border-radius: 20px;
+        cursor: pointer;
+        transition: all 0.1s ease;
+      }
+
+      .nav-btn:hover {
+        background: #752be4;
+        box-shadow: 0 0 0 3px #000000;
+      }
+
+      /* 🔹 Wrapper to keep grid centered with side spacing */
+      .grid-wrapper {
+        max-width: 1000px; /* shrink overall grid */
+        width: 100%;
+        margin: 0 auto; /* center it */
+      }
+
+      /* 🔹 Container for cards */
+      .card-container {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr); /* 3 cards per row */
+        gap: 30px; /* spacing between cards */
+        justify-items: center; /* center cards */
+      }
+
+      /* Responsive */
+      @media (max-width: 992px) {
+        .card-container {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 20px;
+        }
+      }
+
+      @media (max-width: 600px) {
+        .card-container {
+          grid-template-columns: 1fr;
+          justify-items: center; /* ✅ center cards */
+          gap: 25px; /* ✅ spacing between stacked cards */
+        }
+      }
+
+      .card {
+        position: relative;
+        backdrop-filter: blur(4px);
+        box-shadow: 0 0 10px rgba(123, 47, 247, 0.6),
+          0 0 20px rgba(123, 47, 247, 0.4), 0 0 30px rgba(123, 47, 247, 0.2);
+        max-width: 330px;
+        width: 100%;
+        padding: 2px; /* slightly reduced */
+        border-radius: 20px;
+        background: rgba(255, 255, 255, 0.9);
+        z-index: 1;
+        text-align: center;
+        color: #000;
+      }
+      /* Animated glowing border */
+      .card::before {
+        content: "";
+        position: absolute;
+        inset: 0; /* cover entire card */
+        border-radius: 20px;
+        padding: 3px; /* border thickness */
+        background: linear-gradient(90deg, #ff00ff, #00ffff, #ffea00, #ff00ff);
+        background-size: 300% 300%;
+        animation: borderMove 6s linear infinite;
+        filter: blur(6px); /* glowing effect */
+        -webkit-mask: linear-gradient(#fff 0 0) content-box,
+          linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+        pointer-events: none; /* don’t block clicks */
+      }
+
+      @keyframes borderMove {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+
+      .card-header {
+        height: 150px;
+        background: linear-gradient(135deg, #ff7e5f, #00c6ff, #7b2ff7);
+        position: relative;
+        margin: 10px 10px 0 10px;
+        border-radius: 15px;
+      }
+
+      .profile-img {
+        width: 90px;
+        height: 90px;
+        border-radius: 50%;
+        border: 4px solid #fff;
+        position: absolute;
+        bottom: -45px;
+        left: 20px;
+        object-fit: cover;
+      }
+
+      .card-body {
+        padding: 60px 20px 0px 20px;
+        text-align: left;
+      }
+
+      .card-body h2 {
+        font-size: 22px;
+        font-weight: 600;
+      }
+
+      .card-body p {
+        color: #666;
+        font-size: 14px;
+        margin-top: 2px;
+      }
+
+      .skills {
+        display: flex;
+        justify-content: space-evenly; /* equal spacing */
+        align-items: center;
+        margin: 15px 0;
+        flex-wrap: nowrap; /* stay in one line */
+        gap: 8px; /* keep some spacing between */
+      }
+
+      .skill {
+        background: #333;
+        padding: 6px 0; /* remove horizontal padding */
+        border-radius: 20px;
+        font-size: 10px;
+        color: #f1f1f1;
+        white-space: nowrap;
+        text-align: center;
+        flex: 1; /* ✅ each skill takes equal width */
+      }
+
+      .stats {
+        display: flex;
+        justify-content: space-between;
+        margin: 20px 0;
+        text-align: center;
+      }
+
+      .stats div {
+        font-size: 14px;
+        flex: 1;
+      }
+
+      .stats strong {
+        display: block;
+        font-size: 16px;
+        font-weight: 600;
+        margin-top: 3px;
+      }
+
+      .divider {
+        height: 1px;
+        background: #ddd;
+        margin: 10px 0;
+      }
+
+      .btn {
+        display: block;
+        width: 100%;
+        padding: 12px;
+        background: #000;
+        color: #fff;
+        border: none;
+        border-radius: 25px;
+        font-size: 15px;
+        cursor: pointer;
+        margin-bottom: 8px;
+        transition: 0.3s;
+      }
+
+      .btn:hover {
+        background: #333;
+      }
+
+      .btn.secondary {
+        background: #7b2ff7;
+      }
+
+      .btn.secondary:hover {
+        background: #5e1ec9;
+      }
+
+      .bookmark {
+        position: absolute;
+        top: 170px;
+        right: 15px;
+        background: #fff;
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      .bookmark i {
+        color: #7b2ff7;
+        font-size: 16px;
+      }
+
+      /* 🔹 Modal Styles */
+      .modal {
+        display: none; /* hidden by default */
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.6);
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+      }
+
+      .modal-content {
+        background: #fff;
+        display: flex; /* ✅ split into 2 halves */
+        flex-direction: row;
+        padding: 0; /* remove padding, handle inside children */
+        border-radius: 15px;
+        width: 800px; /* ✅ bigger modal */
+        max-width: 95%;
+        height: 500px; /* ✅ fixed height */
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        animation: fadeIn 0.3s ease;
+      }
+
+      /* Left side (form) */
+      .modal-right {
+        flex: 1;
+        padding: 25px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      /* Right side (empty space) */
+      .modal-left {
+        flex: 1;
+        background: #f4f4f4; /* light gray background */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+        color: #888;
+      }
+
+      /* Adjust form inside left */
+      .modal-right h2 {
+        margin-bottom: 15px;
+        font-size: 22px;
+        text-align: center;
+      }
+
+      .modal-right label {
+        display: block;
+        margin-bottom: 5px;
+        font-size: 14px;
+        font-weight: 500;
+      }
+
+      .modal-right input,
+      .modal-right textarea {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 12px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        font-size: 14px;
+      }
+
+      .modal-right button {
+        width: 100%;
+        padding: 12px;
+        background: #4223db;
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 15px;
+        transition: 0.2s;
+      }
+
+      .modal-right button:hover {
+        background: #752be4;
+      }
+
+      /* Close button */
+      .close-btn {
+        position: absolute;
+        top: 10px;
+        right: 15px;
+        font-size: 20px;
+        color: #333;
+        cursor: pointer;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: scale(0.9);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 🔹 Navbar -->
+    <div class="navbar">
+      <div class="logo">
+        <img
+          src="https://truesofts.com/wp-content/uploads/2025/08/final-truesofts-logo-1.png"
+          alt="Logo"
+        />
+      </div>
+
+      <div class="nav-center-text">HIRE</div>
+
+      <button class="nav-btn hire-btn">Hire Me</button>
+    </div>
+
+    <!-- 🔹 Wrapper with spacing -->
+    <div class="grid-wrapper">
+      <div class="card-container">
+        <!-- 9 cards total -->
+        <div class="card">
+          <div class="card-header">
+            <img src="https://i.pravatar.cc/150?img=3" class="profile-img" />
+          </div>
+          <div class="card-body">
+            <h2>John Morton</h2>
+            <p>UI/UX Designer</p>
+            <div class="skills">
+              <span class="skill">App Design</span
+              ><span class="skill">Web Design</span
+              ><span class="skill">Figma</span>
+            </div>
+            <div class="stats">
+              <div>
+                <i class="fa-solid fa-star"></i><strong>4.9</strong>Rating
+              </div>
+              <div>
+                <i class="fa-solid fa-user-group"></i
+                ><strong>50+</strong>Clients
+              </div>
+              <div>
+                <i class="fa-solid fa-dollar-sign"></i
+                ><strong>$65/hr</strong>Rate
+              </div>
+            </div>
+            <div class="divider"></div>
+            <button class="btn hire-btn">Hire Me</button
+            ><button class="btn secondary">Schedule Meeting</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <img src="https://i.pravatar.cc/150?img=5" class="profile-img" />
+          </div>
+          <div class="card-body">
+            <h2>Sarah Lee</h2>
+            <p>Frontend Developer</p>
+            <div class="skills">
+              <span class="skill">React</span
+              ><span class="skill">JavaScript</span
+              ><span class="skill">Tailwind</span>
+            </div>
+            <div class="stats">
+              <div>
+                <i class="fa-solid fa-star"></i><strong>4.8</strong>Rating
+              </div>
+              <div>
+                <i class="fa-solid fa-user-group"></i
+                ><strong>70+</strong>Clients
+              </div>
+              <div>
+                <i class="fa-solid fa-dollar-sign"></i
+                ><strong>$80/hr</strong>Rate
+              </div>
+            </div>
+            <div class="divider"></div>
+            <button class="btn hire-btn">Hire Me</button
+            ><button class="btn secondary">Schedule Meeting</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <img src="https://i.pravatar.cc/150?img=8" class="profile-img" />
+          </div>
+          <div class="card-body">
+            <h2>Mike Johnson</h2>
+            <p>Backend Developer</p>
+            <div class="skills">
+              <span class="skill">Node.js</span
+              ><span class="skill">MongoDB</span
+              ><span class="skill">API Design</span>
+            </div>
+            <div class="stats">
+              <div>
+                <i class="fa-solid fa-star"></i><strong>5.0</strong>Rating
+              </div>
+              <div>
+                <i class="fa-solid fa-user-group"></i
+                ><strong>90+</strong>Clients
+              </div>
+              <div>
+                <i class="fa-solid fa-dollar-sign"></i
+                ><strong>$100/hr</strong>Rate
+              </div>
+            </div>
+            <div class="divider"></div>
+            <button class="btn hire-btn">Hire Me</button
+            ><button class="btn secondary">Schedule Meeting</button>
+          </div>
+        </div>
+
+        <!-- repeat 6 more for 3x3 -->
+        <div class="card">
+          <div class="card-header">
+            <img src="https://i.pravatar.cc/150?img=11" class="profile-img" />
+          </div>
+          <div class="card-body">
+            <h2>Alice Brown</h2>
+            <p>Data Scientist</p>
+            <div class="skills">
+              <span class="skill">Python</span><span class="skill">AI</span
+              ><span class="skill">ML</span>
+            </div>
+            <div class="stats">
+              <div>
+                <i class="fa-solid fa-star"></i><strong>4.7</strong>Rating
+              </div>
+              <div>
+                <i class="fa-solid fa-user-group"></i
+                ><strong>40+</strong>Clients
+              </div>
+              <div>
+                <i class="fa-solid fa-dollar-sign"></i
+                ><strong>$90/hr</strong>Rate
+              </div>
+            </div>
+            <div class="divider"></div>
+            <button class="btn hire-btn">Hire Me</button
+            ><button class="btn secondary">Schedule Meeting</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <img src="https://i.pravatar.cc/150?img=12" class="profile-img" />
+          </div>
+          <div class="card-body">
+            <h2>David Kim</h2>
+            <p>DevOps Engineer</p>
+            <div class="skills">
+              <span class="skill">AWS</span><span class="skill">Docker</span
+              ><span class="skill">Kubernetes</span>
+            </div>
+            <div class="stats">
+              <div>
+                <i class="fa-solid fa-star"></i><strong>4.9</strong>Rating
+              </div>
+              <div>
+                <i class="fa-solid fa-user-group"></i
+                ><strong>60+</strong>Clients
+              </div>
+              <div>
+                <i class="fa-solid fa-dollar-sign"></i
+                ><strong>$95/hr</strong>Rate
+              </div>
+            </div>
+            <div class="divider"></div>
+            <button class="btn hire-btn">Hire Me</button
+            ><button class="btn secondary">Schedule Meeting</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <img src="https://i.pravatar.cc/150?img=15" class="profile-img" />
+          </div>
+          <div class="card-body">
+            <h2>Emma Watson</h2>
+            <p>Product Manager</p>
+            <div class="skills">
+              <span class="skill">Agile</span><span class="skill">Scrum</span
+              ><span class="skill">Leadership</span>
+            </div>
+            <div class="stats">
+              <div>
+                <i class="fa-solid fa-star"></i><strong>4.8</strong>Rating
+              </div>
+              <div>
+                <i class="fa-solid fa-user-group"></i
+                ><strong>85+</strong>Clients
+              </div>
+              <div>
+                <i class="fa-solid fa-dollar-sign"></i
+                ><strong>$110/hr</strong>Rate
+              </div>
+            </div>
+            <div class="divider"></div>
+            <button class="btn hire-btn">Hire Me</button
+            ><button class="btn secondary">Schedule Meeting</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <img src="https://i.pravatar.cc/150?img=20" class="profile-img" />
+          </div>
+          <div class="card-body">
+            <h2>Chris Evans</h2>
+            <p>Security Expert</p>
+            <div class="skills">
+              <span class="skill">Cybersecurity</span
+              ><span class="skill">Hacking</span
+              ><span class="skill">Linux</span>
+            </div>
+            <div class="stats">
+              <div>
+                <i class="fa-solid fa-star"></i><strong>5.0</strong>Rating
+              </div>
+              <div>
+                <i class="fa-solid fa-user-group"></i
+                ><strong>120+</strong>Clients
+              </div>
+              <div>
+                <i class="fa-solid fa-dollar-sign"></i
+                ><strong>$150/hr</strong>Rate
+              </div>
+            </div>
+            <div class="divider"></div>
+            <button class="btn hire-btn">Hire Me</button
+            ><button class="btn secondary">Schedule Meeting</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <img src="https://i.pravatar.cc/150?img=25" class="profile-img" />
+          </div>
+          <div class="card-body">
+            <h2>Olivia Green</h2>
+            <p>Content Writer</p>
+            <div class="skills">
+              <span class="skill">SEO</span
+              ><span class="skill">Copywriting</span
+              ><span class="skill">Editing</span>
+            </div>
+            <div class="stats">
+              <div>
+                <i class="fa-solid fa-star"></i><strong>4.6</strong>Rating
+              </div>
+              <div>
+                <i class="fa-solid fa-user-group"></i
+                ><strong>30+</strong>Clients
+              </div>
+              <div>
+                <i class="fa-solid fa-dollar-sign"></i
+                ><strong>$40/hr</strong>Rate
+              </div>
+            </div>
+            <div class="divider"></div>
+            <button class="btn hire-btn">Hire Me</button
+            ><button class="btn secondary">Schedule Meeting</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <img src="https://i.pravatar.cc/150?img=25" class="profile-img" />
+          </div>
+          <div class="card-body">
+            <h2>Olivia Green</h2>
+            <p>Content Writer</p>
+            <div class="skills">
+              <span class="skill">SEO</span
+              ><span class="skill">Copywriting</span
+              ><span class="skill">Editing</span>
+            </div>
+            <div class="stats">
+              <div>
+                <i class="fa-solid fa-star"></i><strong>4.6</strong>Rating
+              </div>
+              <div>
+                <i class="fa-solid fa-user-group"></i
+                ><strong>30+</strong>Clients
+              </div>
+              <div>
+                <i class="fa-solid fa-dollar-sign"></i
+                ><strong>$40/hr</strong>Rate
+              </div>
+            </div>
+            <div class="divider"></div>
+            <button class="btn hire-btn">Hire Me</button
+            ><button class="btn secondary">Schedule Meeting</button>
+          </div>
+        </div>
+
+        <!-- 🔹 Modal Popup -->
+        <div id="hireModal" class="modal">
+          <div class="modal-content">
+            <span class="close-btn">&times;</span>
+
+            <!-- left side: empty (can later add image/branding) -->
+            <div class="modal-left">Empty Space</div>
+
+            <!-- Right side: form -->
+            <div class="modal-right">
+              <h2>Hire Request</h2>
+              <form id="hireForm">
+                <label for="name">Name</label>
+                <input type="text" id="name" required />
+
+                <label for="email">Email</label>
+                <input type="email" id="email" required />
+
+                <label for="message">Message</label>
+                <textarea id="message" rows="4" required></textarea>
+
+                <button type="submit">Submit</button>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <!-- 🔹 Schedule Meeting Modal -->
+        <div id="scheduleModal" class="modal">
+          <div class="modal-content">
+            <span class="close-btn">&times;</span>
+
+            <!-- Left side (empty / branding space) -->
+            <div class="modal-left">Empty Space</div>
+
+            <!-- Right side (Calendly iframe) -->
+            <div class="modal-right" style="padding: 0">
+              <iframe
+                src="https://calendly.com/smilewithumar/30min"
+                width="100%"
+                height="100%"
+                style="border: none; border-radius: 0"
+              >
+              </iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      // Get modals
+      const hireModal = document.getElementById("hireModal");
+      const scheduleModal = document.getElementById("scheduleModal");
+
+      // Close buttons
+      const closeBtns = document.querySelectorAll(".close-btn");
+
+      // Hire buttons
+      const hireButtons = document.querySelectorAll(".hire-btn");
+      hireButtons.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          hireModal.style.display = "flex";
+        });
+      });
+
+      // Schedule buttons
+      const scheduleButtons = document.querySelectorAll(".secondary");
+      scheduleButtons.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          scheduleModal.style.display = "flex";
+        });
+      });
+
+      // Close modals
+      closeBtns.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          btn.closest(".modal").style.display = "none";
+        });
+      });
+
+      // Close if clicked outside content
+      window.addEventListener("click", (e) => {
+        if (e.target.classList.contains("modal")) {
+          e.target.style.display = "none";
+        }
+      });
+
+      // Handle form submit
+      document.getElementById("hireForm").addEventListener("submit", (e) => {
+        e.preventDefault();
+        alert("Thank you! We’ll get back to you soon.");
+        hireModal.style.display = "none";
+        e.target.reset();
+      });
+    </script>
+  </body>
+</html>
