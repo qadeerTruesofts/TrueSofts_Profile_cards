@@ -9,6 +9,12 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
     <style>
       * {
         margin: 0;
@@ -19,11 +25,12 @@
 
       body {
         display: flex;
-        flex-direction: column; /* stack navbar on top of grid */
+        flex-direction: column;
         min-height: 100vh;
         background: #f5f5f5;
-        padding: 0; /* remove padding, we'll add per-section */
+        padding: 0;
       }
+
       /* 🔹 Navbar */
       .navbar {
         width: 100%;
@@ -37,10 +44,11 @@
       }
 
       .navbar .logo img {
-        height: 50px; /* adjust size of logo */
-        width: auto; /* keep aspect ratio */
+        height: 50px;
+        width: auto;
         display: block;
       }
+
       .nav-center-text {
         font-size: 35px;
         font-weight: bold;
@@ -50,11 +58,12 @@
         flex: 1;
         text-align: center;
       }
+
       .nav-btn {
         padding: 10px 20px;
         background: #4223db;
         color: #fff;
-        border: none; /* no border by default */
+        border: none;
         border-radius: 20px;
         cursor: pointer;
         transition: all 0.1s ease;
@@ -65,19 +74,50 @@
         box-shadow: 0 0 0 3px #000000;
       }
 
+      /* 🔹 Responsive Styles */
+      @media (max-width: 768px) {
+        .navbar {
+          /* flex-direction: column; stack items vertically */
+          text-align: center;
+          gap: 10px; /* spacing between items */
+        }
+
+        .nav-center-text {
+          font-size: 22px;
+          margin: 10px 0;
+        }
+
+        .nav-btn {
+          width: 100%; /* button full width on mobile */
+          max-width: 300px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .nav-center-text {
+          font-size: 18px;
+          letter-spacing: 1px;
+        }
+
+        .navbar .logo img {
+          height: 40px;
+        }
+      }
+
       /* 🔹 Wrapper to keep grid centered with side spacing */
       .grid-wrapper {
-        max-width: 1000px; /* shrink overall grid */
+        max-width: 1000px;
         width: 100%;
-        margin: 0 auto; /* center it */
+        margin: 0 auto;
+        flex: 1;
       }
 
       /* 🔹 Container for cards */
       .card-container {
         display: grid;
-        grid-template-columns: repeat(3, 1fr); /* 3 cards per row */
-        gap: 30px; /* spacing between cards */
-        justify-items: center; /* center cards */
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px;
+        justify-items: center;
       }
 
       /* Responsive */
@@ -91,8 +131,8 @@
       @media (max-width: 600px) {
         .card-container {
           grid-template-columns: 1fr;
-          justify-items: center; /* ✅ center cards */
-          gap: 25px; /* ✅ spacing between stacked cards */
+          justify-items: center;
+          gap: 25px;
         }
       }
 
@@ -103,38 +143,42 @@
           0 0 20px rgba(123, 47, 247, 0.4), 0 0 30px rgba(123, 47, 247, 0.2);
         max-width: 330px;
         width: 100%;
-        padding: 2px; /* slightly reduced */
+        padding: 2px;
         border-radius: 20px;
         background: rgba(255, 255, 255, 0.9);
         z-index: 1;
         text-align: center;
         color: #000;
       }
+
       /* Animated glowing border */
       .card::before {
         content: "";
         position: absolute;
-        inset: 0; /* cover entire card */
+        inset: 0;
         border-radius: 20px;
-        padding: 3px; /* border thickness */
+        padding: 3px;
         background: linear-gradient(90deg, #ff00ff, #00ffff, #ffea00, #ff00ff);
         background-size: 300% 300%;
         animation: borderMove 6s linear infinite;
-        filter: blur(6px); /* glowing effect */
+        filter: blur(6px);
         -webkit-mask: linear-gradient(#fff 0 0) content-box,
           linear-gradient(#fff 0 0);
+        mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
         -webkit-mask-composite: xor;
         mask-composite: exclude;
-        pointer-events: none; /* don’t block clicks */
+        pointer-events: none;
       }
 
       @keyframes borderMove {
         0% {
           background-position: 0% 50%;
         }
+
         50% {
           background-position: 100% 50%;
         }
+
         100% {
           background-position: 0% 50%;
         }
@@ -165,8 +209,8 @@
       }
 
       .card-body h2 {
-        font-size: 22px;
-        font-weight: 600;
+        font-size: 22px !important;
+        font-weight: 600 !important;
       }
 
       .card-body p {
@@ -177,22 +221,22 @@
 
       .skills {
         display: flex;
-        justify-content: space-evenly; /* equal spacing */
+        justify-content: space-evenly;
         align-items: center;
         margin: 15px 0;
-        flex-wrap: nowrap; /* stay in one line */
-        gap: 8px; /* keep some spacing between */
+        flex-wrap: nowrap;
+        gap: 8px;
       }
 
       .skill {
         background: #333;
-        padding: 6px 0; /* remove horizontal padding */
+        padding: 6px 0;
         border-radius: 20px;
         font-size: 10px;
         color: #f1f1f1;
         white-space: nowrap;
         text-align: center;
-        flex: 1; /* ✅ each skill takes equal width */
+        flex: 1;
       }
 
       .stats {
@@ -266,117 +310,432 @@
         font-size: 16px;
       }
 
+      /* 🔹 Stats Section */
+      .stats-section {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        padding: 60px 0;
+        color: white;
+        margin-top: 80px;
+      }
+
+      .stats-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 40px;
+      }
+
+      .stats-title {
+        text-align: center;
+        font-size: 36px;
+        font-weight: bold;
+        margin-bottom: 50px;
+      }
+
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 40px;
+        text-align: center;
+      }
+
+      .stat-item {
+        background: rgba(255, 255, 255, 0.1);
+        padding: 30px;
+        border-radius: 15px;
+        backdrop-filter: blur(10px);
+        transition: transform 0.3s ease;
+      }
+
+      .stat-item:hover {
+        transform: translateY(-5px);
+      }
+
+      .stat-number {
+        font-size: 48px;
+        font-weight: bold;
+        margin-bottom: 10px;
+        color: #ffea00;
+      }
+
+      .stat-label {
+        font-size: 18px;
+        opacity: 0.9;
+      }
+
+      /* 🔹 Footer */
+      .footer {
+        background: #1a1a1a;
+        color: white;
+        padding: 50px 0 20px;
+        margin-top: auto;
+      }
+
+      .footer-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 40px;
+      }
+
+      .footer-content {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 40px;
+        margin-bottom: 30px;
+      }
+
+      .footer-section h3 {
+        font-size: 20px;
+        margin-bottom: 20px;
+        color: #7b2ff7;
+      }
+
+      .footer-section p,
+      .footer-section li {
+        margin-bottom: 10px;
+        opacity: 0.8;
+        line-height: 1.6;
+      }
+
+      .footer-section ul {
+        list-style: none;
+      }
+
+      .footer-section a {
+        color: white;
+        text-decoration: none;
+        transition: color 0.3s ease;
+      }
+
+      .footer-section a:hover {
+        color: #7b2ff7;
+      }
+
+      .social-links {
+        display: flex;
+        gap: 15px;
+        margin-top: 20px;
+      }
+
+      .social-links a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        background: #333;
+        border-radius: 50%;
+        transition: all 0.3s ease;
+      }
+
+      .social-links a:hover {
+        background: #7b2ff7;
+        transform: translateY(-2px);
+      }
+
+      .footer-bottom {
+        border-top: 1px solid #333;
+        padding-top: 20px;
+        text-align: center;
+        opacity: 0.6;
+      }
+
       /* 🔹 Modal Styles */
       .modal {
-        display: none; /* hidden by default */
+        display: none;
         position: fixed;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
-        background: rgba(0, 0, 0, 0.6);
+        background: rgba(0, 0, 0, 0.8);
         justify-content: center;
         align-items: center;
-        z-index: 1000;
+        z-index: 999;
+        backdrop-filter: blur(5px);
       }
 
       .modal-content {
         background: #fff;
-        display: flex; /* ✅ split into 2 halves */
+        display: flex;
         flex-direction: row;
-        padding: 0; /* remove padding, handle inside children */
-        border-radius: 15px;
-        width: 800px; /* ✅ bigger modal */
-        max-width: 95%;
-        height: 500px; /* ✅ fixed height */
+        border-radius: 0;
+        width: 100vw;
+        height: 100vh;
         position: relative;
         overflow: hidden;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-        animation: fadeIn 0.3s ease;
+        animation: slideIn 0.4s ease;
       }
 
-      /* Left side (form) */
-      .modal-right {
-        flex: 1;
-        padding: 25px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-      }
-
-      /* Right side (empty space) */
-      .modal-left {
-        flex: 1;
-        background: #f4f4f4; /* light gray background */
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 18px;
-        color: #888;
-      }
-
-      /* Adjust form inside left */
-      .modal-right h2 {
-        margin-bottom: 15px;
-        font-size: 22px;
-        text-align: center;
-      }
-
-      .modal-right label {
-        display: block;
-        margin-bottom: 5px;
-        font-size: 14px;
-        font-weight: 500;
-      }
-
-      .modal-right input,
-      .modal-right textarea {
-        width: 100%;
-        padding: 10px;
-        margin-bottom: 12px;
-        border: 1px solid #ccc;
-        border-radius: 8px;
-        font-size: 14px;
-      }
-
-      .modal-right button {
-        width: 100%;
-        padding: 12px;
-        background: #4223db;
-        color: #fff;
-        border: none;
-        border-radius: 8px;
-        cursor: pointer;
-        font-size: 15px;
-        transition: 0.2s;
-      }
-
-      .modal-right button:hover {
-        background: #752be4;
-      }
-
-      /* Close button */
-      .close-btn {
-        position: absolute;
-        top: 10px;
-        right: 15px;
-        font-size: 20px;
-        color: #333;
-        cursor: pointer;
-      }
-
-      @keyframes fadeIn {
+      @keyframes slideIn {
         from {
           opacity: 0;
           transform: scale(0.9);
         }
+
         to {
           opacity: 1;
           transform: scale(1);
         }
       }
+
+      /* Left side of modal - Branding */
+      .modal-left {
+        flex: 1;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        padding: 40px;
+        text-align: center;
+      }
+
+      .modal-left h2 {
+        font-size: 48px !important;
+        font-weight: bold !important;
+        margin-bottom: 20px !important;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3) !important;
+      }
+
+      .modal-left p {
+        font-size: 18px;
+        opacity: 0.9;
+        line-height: 1.6;
+        max-width: 400px;
+      }
+
+      .modal-left .features {
+        margin-top: 40px;
+        text-align: left;
+      }
+
+      .modal-left .feature-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+        font-size: 16px;
+      }
+
+      .modal-left .feature-item i {
+        color: #ffea00;
+        margin-right: 15px;
+        font-size: 18px;
+      }
+
+      /* Right side of modal - Form */
+      .modal-right {
+        flex: 1;
+        padding: 60px;
+        display: flex;
+
+        flex-direction: column;
+        justify-content: center;
+        background: #f8f9fa;
+      }
+
+      .modal-right h2 {
+        margin-bottom: 20px !important;
+        font-size: 32px !important;
+        text-align: center !important;
+        color: #333 !important;
+      }
+
+      .modal-right label {
+        display: block;
+        margin-bottom: 8px;
+        font-size: 16px;
+        font-weight: 500;
+        color: #555;
+      }
+
+      .modal-right input,
+      .modal-right textarea,
+      .modal-right select {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 2px solid #e1e5e9;
+        border-radius: 10px;
+        font-size: 16px;
+        transition: border-color 0.3s ease;
+      }
+
+      .modal-right input:focus,
+      .modal-right textarea:focus,
+      .modal-right select:focus {
+        outline: none;
+        border-color: #7b2ff7;
+        box-shadow: 0 0 0 3px rgba(123, 47, 247, 0.1);
+      }
+
+      .modal-right button {
+        width: 100%;
+        padding: 15px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: #fff;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        font-size: 18px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        margin-top: 5px;
+      }
+
+      .modal-right button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px rgba(123, 47, 247, 0.3);
+      }
+
+      /* Close button */
+      .close-btn {
+        position: absolute;
+        top: 20px;
+        right: 30px;
+        font-size: 30px;
+        color: #666;
+        cursor: pointer;
+        z-index: 1001;
+        width: 50px;
+        height: 50px;
+        background: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+        z-index: 1001;
+      }
+
+      .close-btn:hover {
+        background: #f0f0f0;
+        transform: rotate(90deg);
+      }
+
+      /* Responsive modal */
+      @media (max-width: 768px) {
+        .modal-content {
+          flex-direction: column;
+        }
+
+        .modal-left,
+        .modal-right {
+          flex: none;
+          height: 50vh;
+        }
+
+        .modal-left {
+          padding: 30px 20px;
+        }
+
+        .modal-left h2 {
+          font-size: 32px !important;
+        }
+
+        .modal-right {
+          padding: 30px 20px;
+          overflow-y: auto;
+        }
+      }
+
+      /* Hire Modal Mobile view: hide left side and expand form */
+      @media (max-width: 767px) {
+        #hireModal .modal-left {
+          display: none;
+        }
+
+        #hireModal .modal-right {
+          width: 100%; /* take full width */
+          height: 100%;
+        }
+      }
+
+      /* Schedule Modal Specific Styles */
+      .schedule-modal .modal-right {
+        padding: 0;
+        background: white;
+      }
+
+      .schedule-modal iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+        position: relative;
+        z-index: 1;
+        pointer-events: none;
+      }
+      /* When modal is active, allow interaction */
+      .schedule-modal.active iframe {
+        pointer-events: auto; /* 👈 user can click inside iframe */
+      }
+      /* Force close button to stay above iframe/content */
+      #scheduleModal .close-btn {
+        z-index: 2000 !important;
+        position: absolute;
+        top: 20px;
+        right: 30px;
+        pointer-events: auto; /* ensure clicks work */
+      }
+
+      /* Schedule Modal Mobile view: hide left side and expand form */
+      @media (max-width: 767px) {
+        #scheduleModal .modal-left {
+          display: none;
+        }
+
+        #scheduleModal .modal-right {
+          width: 100%; /* take full width */
+          height: 100%;
+        }
+      }
+
+      /* Selected talent summary */
+      .selected-talent {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        padding: 12px 14px;
+        border: 2px dashed #e1e5e9;
+        background: #fff;
+        border-radius: 12px;
+        margin-bottom: 20px;
+      }
+
+      .selected-talent img {
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid #fff;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      }
+
+      .selected-talent .talent-meta {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+      }
+
+      .selected-talent .talent-name {
+        font-weight: 600;
+        color: #222;
+      }
+
+      .selected-talent .talent-role {
+        font-size: 13px;
+        color: #666;
+      }
+
+      .selected-talent .talent-rate {
+        font-size: 13px;
+        color: #7b2ff7;
+        font-weight: 600;
+      }
     </style>
   </head>
+
   <body>
     <!-- 🔹 Navbar -->
     <div class="navbar">
@@ -395,7 +754,7 @@
     <!-- 🔹 Wrapper with spacing -->
     <div class="grid-wrapper">
       <div class="card-container">
-        <!-- 9 cards total -->
+        <!-- Card 1 -->
         <div class="card">
           <div class="card-header">
             <img src="https://i.pravatar.cc/150?img=3" class="profile-img" />
@@ -422,22 +781,25 @@
               </div>
             </div>
             <div class="divider"></div>
-            <button class="btn hire-btn">Hire Me</button
-            ><button class="btn secondary">Schedule Meeting</button>
+            <button class="btn hire-btn">Hire Me</button>
+            <button class="btn secondary schedule-btn">Schedule Meeting</button>
+          </div>
+          <div class="bookmark">
+            <i class="fa-regular fa-heart"></i>
           </div>
         </div>
 
+        <!-- Card 2 -->
         <div class="card">
           <div class="card-header">
             <img src="https://i.pravatar.cc/150?img=5" class="profile-img" />
           </div>
           <div class="card-body">
-            <h2>Sarah Lee</h2>
+            <h2>Sarah Wilson</h2>
             <p>Frontend Developer</p>
             <div class="skills">
-              <span class="skill">React</span
-              ><span class="skill">JavaScript</span
-              ><span class="skill">Tailwind</span>
+              <span class="skill">React</span><span class="skill">Vue.js</span
+              ><span class="skill">CSS</span>
             </div>
             <div class="stats">
               <div>
@@ -445,30 +807,33 @@
               </div>
               <div>
                 <i class="fa-solid fa-user-group"></i
-                ><strong>70+</strong>Clients
+                ><strong>35+</strong>Clients
               </div>
               <div>
                 <i class="fa-solid fa-dollar-sign"></i
-                ><strong>$80/hr</strong>Rate
+                ><strong>$55/hr</strong>Rate
               </div>
             </div>
             <div class="divider"></div>
-            <button class="btn hire-btn">Hire Me</button
-            ><button class="btn secondary">Schedule Meeting</button>
+            <button class="btn hire-btn">Hire Me</button>
+            <button class="btn secondary schedule-btn">Schedule Meeting</button>
+          </div>
+          <div class="bookmark">
+            <i class="fa-regular fa-heart"></i>
           </div>
         </div>
 
+        <!-- Card 3 -->
         <div class="card">
           <div class="card-header">
-            <img src="https://i.pravatar.cc/150?img=8" class="profile-img" />
+            <img src="https://i.pravatar.cc/150?img=7" class="profile-img" />
           </div>
           <div class="card-body">
-            <h2>Mike Johnson</h2>
-            <p>Backend Developer</p>
+            <h2>Mike Chen</h2>
+            <p>Full Stack Developer</p>
             <div class="skills">
-              <span class="skill">Node.js</span
-              ><span class="skill">MongoDB</span
-              ><span class="skill">API Design</span>
+              <span class="skill">Node.js</span><span class="skill">Python</span
+              ><span class="skill">AWS</span>
             </div>
             <div class="stats">
               <div>
@@ -476,30 +841,33 @@
               </div>
               <div>
                 <i class="fa-solid fa-user-group"></i
-                ><strong>90+</strong>Clients
+                ><strong>75+</strong>Clients
               </div>
               <div>
                 <i class="fa-solid fa-dollar-sign"></i
-                ><strong>$100/hr</strong>Rate
+                ><strong>$85/hr</strong>Rate
               </div>
             </div>
             <div class="divider"></div>
-            <button class="btn hire-btn">Hire Me</button
-            ><button class="btn secondary">Schedule Meeting</button>
+            <button class="btn hire-btn">Hire Me</button>
+            <button class="btn secondary schedule-btn">Schedule Meeting</button>
+          </div>
+          <div class="bookmark">
+            <i class="fa-regular fa-heart"></i>
           </div>
         </div>
 
-        <!-- repeat 6 more for 3x3 -->
+        <!-- Card 4 -->
         <div class="card">
           <div class="card-header">
-            <img src="https://i.pravatar.cc/150?img=11" class="profile-img" />
+            <img src="https://i.pravatar.cc/150?img=9" class="profile-img" />
           </div>
           <div class="card-body">
-            <h2>Alice Brown</h2>
-            <p>Data Scientist</p>
+            <h2>Emma Rodriguez</h2>
+            <p>Digital Marketer</p>
             <div class="skills">
-              <span class="skill">Python</span><span class="skill">AI</span
-              ><span class="skill">ML</span>
+              <span class="skill">SEO</span><span class="skill">SEM</span
+              ><span class="skill">Analytics</span>
             </div>
             <div class="stats">
               <div>
@@ -507,29 +875,34 @@
               </div>
               <div>
                 <i class="fa-solid fa-user-group"></i
-                ><strong>40+</strong>Clients
+                ><strong>42+</strong>Clients
               </div>
               <div>
                 <i class="fa-solid fa-dollar-sign"></i
-                ><strong>$90/hr</strong>Rate
+                ><strong>$45/hr</strong>Rate
               </div>
             </div>
             <div class="divider"></div>
-            <button class="btn hire-btn">Hire Me</button
-            ><button class="btn secondary">Schedule Meeting</button>
+            <button class="btn hire-btn">Hire Me</button>
+            <button class="btn secondary schedule-btn">Schedule Meeting</button>
+          </div>
+          <div class="bookmark">
+            <i class="fa-regular fa-heart"></i>
           </div>
         </div>
 
+        <!-- Card 5 -->
         <div class="card">
           <div class="card-header">
-            <img src="https://i.pravatar.cc/150?img=12" class="profile-img" />
+            <img src="https://i.pravatar.cc/150?img=11" class="profile-img" />
           </div>
           <div class="card-body">
-            <h2>David Kim</h2>
-            <p>DevOps Engineer</p>
+            <h2>Alex Johnson</h2>
+            <p>Mobile Developer</p>
             <div class="skills">
-              <span class="skill">AWS</span><span class="skill">Docker</span
-              ><span class="skill">Kubernetes</span>
+              <span class="skill">Flutter</span
+              ><span class="skill">React Native</span
+              ><span class="skill">iOS</span>
             </div>
             <div class="stats">
               <div>
@@ -537,29 +910,33 @@
               </div>
               <div>
                 <i class="fa-solid fa-user-group"></i
-                ><strong>60+</strong>Clients
+                ><strong>28+</strong>Clients
               </div>
               <div>
                 <i class="fa-solid fa-dollar-sign"></i
-                ><strong>$95/hr</strong>Rate
+                ><strong>$70/hr</strong>Rate
               </div>
             </div>
             <div class="divider"></div>
-            <button class="btn hire-btn">Hire Me</button
-            ><button class="btn secondary">Schedule Meeting</button>
+            <button class="btn hire-btn">Hire Me</button>
+            <button class="btn secondary schedule-btn">Schedule Meeting</button>
+          </div>
+          <div class="bookmark">
+            <i class="fa-regular fa-heart"></i>
           </div>
         </div>
 
+        <!-- Card 6 -->
         <div class="card">
           <div class="card-header">
-            <img src="https://i.pravatar.cc/150?img=15" class="profile-img" />
+            <img src="https://i.pravatar.cc/150?img=13" class="profile-img" />
           </div>
           <div class="card-body">
-            <h2>Emma Watson</h2>
-            <p>Product Manager</p>
+            <h2>Lisa Thompson</h2>
+            <p>Data Scientist</p>
             <div class="skills">
-              <span class="skill">Agile</span><span class="skill">Scrum</span
-              ><span class="skill">Leadership</span>
+              <span class="skill">Python</span><span class="skill">ML</span
+              ><span class="skill">Tableau</span>
             </div>
             <div class="stats">
               <div>
@@ -567,206 +944,403 @@
               </div>
               <div>
                 <i class="fa-solid fa-user-group"></i
-                ><strong>85+</strong>Clients
+                ><strong>38+</strong>Clients
               </div>
               <div>
                 <i class="fa-solid fa-dollar-sign"></i
-                ><strong>$110/hr</strong>Rate
+                ><strong>$90/hr</strong>Rate
               </div>
             </div>
             <div class="divider"></div>
-            <button class="btn hire-btn">Hire Me</button
-            ><button class="btn secondary">Schedule Meeting</button>
+            <button class="btn hire-btn">Hire Me</button>
+            <button class="btn secondary schedule-btn">Schedule Meeting</button>
           </div>
-        </div>
-
-        <div class="card">
-          <div class="card-header">
-            <img src="https://i.pravatar.cc/150?img=20" class="profile-img" />
-          </div>
-          <div class="card-body">
-            <h2>Chris Evans</h2>
-            <p>Security Expert</p>
-            <div class="skills">
-              <span class="skill">Cybersecurity</span
-              ><span class="skill">Hacking</span
-              ><span class="skill">Linux</span>
-            </div>
-            <div class="stats">
-              <div>
-                <i class="fa-solid fa-star"></i><strong>5.0</strong>Rating
-              </div>
-              <div>
-                <i class="fa-solid fa-user-group"></i
-                ><strong>120+</strong>Clients
-              </div>
-              <div>
-                <i class="fa-solid fa-dollar-sign"></i
-                ><strong>$150/hr</strong>Rate
-              </div>
-            </div>
-            <div class="divider"></div>
-            <button class="btn hire-btn">Hire Me</button
-            ><button class="btn secondary">Schedule Meeting</button>
-          </div>
-        </div>
-
-        <div class="card">
-          <div class="card-header">
-            <img src="https://i.pravatar.cc/150?img=25" class="profile-img" />
-          </div>
-          <div class="card-body">
-            <h2>Olivia Green</h2>
-            <p>Content Writer</p>
-            <div class="skills">
-              <span class="skill">SEO</span
-              ><span class="skill">Copywriting</span
-              ><span class="skill">Editing</span>
-            </div>
-            <div class="stats">
-              <div>
-                <i class="fa-solid fa-star"></i><strong>4.6</strong>Rating
-              </div>
-              <div>
-                <i class="fa-solid fa-user-group"></i
-                ><strong>30+</strong>Clients
-              </div>
-              <div>
-                <i class="fa-solid fa-dollar-sign"></i
-                ><strong>$40/hr</strong>Rate
-              </div>
-            </div>
-            <div class="divider"></div>
-            <button class="btn hire-btn">Hire Me</button
-            ><button class="btn secondary">Schedule Meeting</button>
-          </div>
-        </div>
-
-        <div class="card">
-          <div class="card-header">
-            <img src="https://i.pravatar.cc/150?img=25" class="profile-img" />
-          </div>
-          <div class="card-body">
-            <h2>Olivia Green</h2>
-            <p>Content Writer</p>
-            <div class="skills">
-              <span class="skill">SEO</span
-              ><span class="skill">Copywriting</span
-              ><span class="skill">Editing</span>
-            </div>
-            <div class="stats">
-              <div>
-                <i class="fa-solid fa-star"></i><strong>4.6</strong>Rating
-              </div>
-              <div>
-                <i class="fa-solid fa-user-group"></i
-                ><strong>30+</strong>Clients
-              </div>
-              <div>
-                <i class="fa-solid fa-dollar-sign"></i
-                ><strong>$40/hr</strong>Rate
-              </div>
-            </div>
-            <div class="divider"></div>
-            <button class="btn hire-btn">Hire Me</button
-            ><button class="btn secondary">Schedule Meeting</button>
-          </div>
-        </div>
-
-        <!-- 🔹 Modal Popup -->
-        <div id="hireModal" class="modal">
-          <div class="modal-content">
-            <span class="close-btn">&times;</span>
-
-            <!-- left side: empty (can later add image/branding) -->
-            <div class="modal-left">Empty Space</div>
-
-            <!-- Right side: form -->
-            <div class="modal-right">
-              <h2>Hire Request</h2>
-              <form id="hireForm">
-                <label for="name">Name</label>
-                <input type="text" id="name" required />
-
-                <label for="email">Email</label>
-                <input type="email" id="email" required />
-
-                <label for="message">Message</label>
-                <textarea id="message" rows="4" required></textarea>
-
-                <button type="submit">Submit</button>
-              </form>
-            </div>
-          </div>
-        </div>
-
-        <!-- 🔹 Schedule Meeting Modal -->
-        <div id="scheduleModal" class="modal">
-          <div class="modal-content">
-            <span class="close-btn">&times;</span>
-
-            <!-- Left side (empty / branding space) -->
-            <div class="modal-left">Empty Space</div>
-
-            <!-- Right side (Calendly iframe) -->
-            <div class="modal-right" style="padding: 0">
-              <iframe
-                src="https://calendly.com/smilewithumar/30min"
-                width="100%"
-                height="100%"
-                style="border: none; border-radius: 0"
-              >
-              </iframe>
-            </div>
+          <div class="bookmark">
+            <i class="fa-regular fa-heart"></i>
           </div>
         </div>
       </div>
     </div>
+
+    <!-- 🔹 Stats Section -->
+    <div class="stats-section">
+      <div class="stats-container">
+        <h2 class="stats-title">Why Choose Our Platform?</h2>
+        <div class="stats-grid">
+          <div class="stat-item">
+            <div class="stat-number">500+</div>
+            <div class="stat-label">Expert Freelancers</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">10K+</div>
+            <div class="stat-label">Projects Completed</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">98%</div>
+            <div class="stat-label">Client Satisfaction</div>
+          </div>
+          <!-- <div class="stat-item">
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label">Support Available</div>
+                </div> -->
+        </div>
+      </div>
+    </div>
+
+    <!-- 🔹 Footer -->
+    <footer class="footer">
+      <div class="footer-container">
+        <div class="footer-content">
+          <div class="footer-section">
+            <h3>About TrueSofts</h3>
+            <p>
+              We connect businesses with top-tier freelancers and agencies
+              worldwide. Our platform ensures quality, reliability, and success
+              for every project.
+            </p>
+            <div class="social-links">
+              <a href="#"><i class="fab fa-facebook-f"></i></a>
+              <a href="#"><i class="fab fa-twitter"></i></a>
+              <a href="#"><i class="fab fa-linkedin-in"></i></a>
+              <a href="#"><i class="fab fa-instagram"></i></a>
+            </div>
+          </div>
+          <div class="footer-section">
+            <h3>Services</h3>
+            <ul>
+              <li><a href="#">Web Development</a></li>
+              <li><a href="#">Mobile App Development</a></li>
+              <li><a href="#">UI/UX Design</a></li>
+              <li><a href="#">Digital Marketing</a></li>
+              <li><a href="#">Data Science</a></li>
+            </ul>
+          </div>
+          <div class="footer-section">
+            <h3>Support</h3>
+            <ul>
+              <li><a href="#">Help Center</a></li>
+              <li><a href="#">Contact Us</a></li>
+              <li><a href="#">Terms of Service</a></li>
+              <li><a href="#">Privacy Policy</a></li>
+              <li><a href="#">FAQ</a></li>
+            </ul>
+          </div>
+          <div class="footer-section">
+            <h3>Contact Info</h3>
+            <p><i class="fas fa-envelope"></i> hello@truesofts.com</p>
+            <p><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
+            <p>
+              <i class="fas fa-map-marker-alt"></i> 123 Business St, Suite
+              100<br />City, State 12345
+            </p>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>
+            &copy; 2025 TrueSofts. All rights reserved. Built with passion for
+            connecting talent with opportunity.
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- 🔹 Hire Modal Popup -->
+    <div id="hireModal" class="modal">
+      <div class="modal-content">
+        <span class="close-btn">&times;</span>
+
+        <!-- Left side: Branding -->
+        <div class="modal-left">
+          <h2>Let's Work Together</h2>
+          <p>
+            Ready to bring your project to life? Our expert freelancers are here
+            to help you achieve your goals with precision and creativity.
+          </p>
+
+          <div class="features">
+            <div class="feature-item">
+              <i class="fas fa-check-circle"></i>
+              <span>Verified Expert Professionals</span>
+            </div>
+            <div class="feature-item">
+              <i class="fas fa-shield-alt"></i>
+              <span>100% Secure Payments</span>
+            </div>
+            <div class="feature-item">
+              <i class="fas fa-clock"></i>
+              <span>Fast Project Delivery</span>
+            </div>
+            <div class="feature-item">
+              <i class="fas fa-headset"></i>
+              <span>Dedicated Support</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right side: Form -->
+        <div class="modal-right" style="overflow-y: auto; padding-right: 10px">
+          <h2>Tell Us About Your Project</h2>
+          <div class="selected-talent" id="hireSelectedTalent">
+            <img id="hireTalentAvatar" src="" alt="Talent avatar" />
+            <div class="talent-meta">
+              <div class="talent-name" id="hireTalentName"></div>
+              <div class="talent-role" id="hireTalentRole"></div>
+              <div class="talent-rate" id="hireTalentRate"></div>
+            </div>
+          </div>
+          <form id="hireForm">
+            <input type="hidden" id="candidateNameField" name="candidateName" />
+            <label for="fullName">Full Name</label>
+            <input
+              type="text"
+              id="fullName"
+              name="fullName"
+              placeholder="John Doe"
+              required
+            />
+
+            <label for="email">Business Email</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="you@company.com"
+              required
+            />
+
+            <!-- <label for="company">Company</label>
+            <input
+              type="text"
+              id="company"
+              name="company"
+              placeholder="Company Inc."
+            />
+
+            <label for="service">Service</label>
+            <select id="service" name="service" required>
+              <option value="" disabled selected>Select a service</option>
+              <option>Web Development</option>
+              <option>Mobile App Development</option>
+              <option>UI/UX Design</option>
+              <option>Digital Marketing</option>
+              <option>Data Science</option>
+            </select>
+
+            <label for="budget">Estimated Budget</label>
+            <select id="budget" name="budget" required>
+              <option value="" disabled selected>Select budget range</option>
+              <option>Less than $1,000</option>
+              <option>$1,000 - $5,000</option>
+              <option>$5,000 - $10,000</option>
+              <option>$10,000 - $25,000</option>
+              <option>More than $25,000</option>
+            </select> -->
+
+            <label for="brief">Project Brief</label>
+            <textarea
+              id="brief"
+              name="brief"
+              rows="5"
+              placeholder="Describe your project goals, timeline, and key requirements..."
+              required
+            ></textarea>
+
+            <button type="submit" id="hireSubmitBtn">Send Request</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- 🔹 Schedule Meeting Modal -->
+    <div id="scheduleModal" class="modal schedule-modal">
+      <div class="modal-content">
+        <span class="close-btn">&times;</span>
+        <div class="modal-left">
+          <h2 style="color: white !important">Schedule a Meeting</h2>
+
+          <div class="selected-talent" id="scheduleSelectedTalent">
+            <img id="scheduleTalentAvatar" src="" alt="Talent avatar" />
+            <div class="talent-meta">
+              <div class="talent-name" id="scheduleTalentName"></div>
+              <div class="talent-role" id="scheduleTalentRole"></div>
+              <div class="talent-rate" id="scheduleTalentRate"></div>
+            </div>
+          </div>
+          <p>
+            Pick a time that works for you. We look forward to learning about
+            your needs.
+          </p>
+          <div class="features">
+            <div class="feature-item">
+              <i class="fas fa-calendar-check"></i>
+              <span>Flexible Time Slots</span>
+            </div>
+            <div class="feature-item">
+              <i class="fas fa-video"></i>
+              <span>Google Meet or Zoom</span>
+            </div>
+            <div class="feature-item">
+              <i class="fas fa-handshake"></i>
+              <span>Free Discovery Call</span>
+            </div>
+          </div>
+        </div>
+        <div class="modal-right">
+          <iframe
+            src="https://calendly.com/smilewithumar/30min"
+            title="Schedule a meeting"
+          ></iframe>
+        </div>
+      </div>
+    </div>
+
     <script>
-      // Get modals
-      const hireModal = document.getElementById("hireModal");
-      const scheduleModal = document.getElementById("scheduleModal");
+      (function () {
+        const hireModal = document.getElementById("hireModal");
+        const scheduleModal = document.getElementById("scheduleModal");
+        const hireButtons = document.querySelectorAll(".hire-btn");
+        const scheduleButtons = document.querySelectorAll(".schedule-btn");
+        const closeButtons = document.querySelectorAll(".close-btn");
+        const hireForm = document.getElementById("hireForm");
+        const hireSubmitBtn = document.getElementById("hireSubmitBtn");
+        const hireSelected = document.getElementById("hireSelectedTalent");
+        const scheduleSelected = document.getElementById(
+          "scheduleSelectedTalent"
+        );
+        const candidateNameField =
+          document.getElementById("candidateNameField");
 
-      // Close buttons
-      const closeBtns = document.querySelectorAll(".close-btn");
+        // Hide talent sections initially
+        if (hireSelected) hireSelected.style.display = "none";
+        if (scheduleSelected) scheduleSelected.style.display = "none";
 
-      // Hire buttons
-      const hireButtons = document.querySelectorAll(".hire-btn");
-      hireButtons.forEach((btn) => {
-        btn.addEventListener("click", () => {
-          hireModal.style.display = "flex";
-        });
-      });
-
-      // Schedule buttons
-      const scheduleButtons = document.querySelectorAll(".secondary");
-      scheduleButtons.forEach((btn) => {
-        btn.addEventListener("click", () => {
-          scheduleModal.style.display = "flex";
-        });
-      });
-
-      // Close modals
-      closeBtns.forEach((btn) => {
-        btn.addEventListener("click", () => {
-          btn.closest(".modal").style.display = "none";
-        });
-      });
-
-      // Close if clicked outside content
-      window.addEventListener("click", (e) => {
-        if (e.target.classList.contains("modal")) {
-          e.target.style.display = "none";
+        function getTalentFromButton(btn) {
+          const card = btn.closest(".card");
+          if (!card) return null;
+          const nameEl = card.querySelector(".card-body h2");
+          const roleEl = card.querySelector(".card-body p");
+          const rateEl = card.querySelector(".stats div:nth-child(3) strong");
+          const avatarEl = card.querySelector(".profile-img");
+          return {
+            name: nameEl ? nameEl.textContent.trim() : "",
+            role: roleEl ? roleEl.textContent.trim() : "",
+            rate: rateEl ? rateEl.textContent.trim() : "",
+            avatar: avatarEl ? avatarEl.src : "",
+          };
         }
-      });
 
-      // Handle form submit
-      document.getElementById("hireForm").addEventListener("submit", (e) => {
-        e.preventDefault();
-        alert("Thank you! We’ll get back to you soon.");
-        hireModal.style.display = "none";
-        e.target.reset();
-      });
+        function setHireTalent(talent) {
+          if (!hireSelected) return;
+          if (!talent) {
+            hireSelected.style.display = "none";
+            if (candidateNameField) candidateNameField.value = "";
+            return;
+          }
+          hireSelected.style.display = "flex";
+          const img = document.getElementById("hireTalentAvatar");
+          const name = document.getElementById("hireTalentName");
+          const role = document.getElementById("hireTalentRole");
+          const rate = document.getElementById("hireTalentRate");
+          if (img) img.src = talent.avatar || "";
+          if (name) name.textContent = talent.name || "";
+          if (role) role.textContent = talent.role || "";
+          if (rate) rate.textContent = talent.rate || "";
+          if (candidateNameField) candidateNameField.value = talent.name || "";
+        }
+
+        function setScheduleTalent(talent) {
+          if (!scheduleSelected) return;
+          if (!talent) {
+            scheduleSelected.style.display = "none";
+            return;
+          }
+          scheduleSelected.style.display = "flex";
+          const img = document.getElementById("scheduleTalentAvatar");
+          const name = document.getElementById("scheduleTalentName");
+          const role = document.getElementById("scheduleTalentRole");
+          const rate = document.getElementById("scheduleTalentRate");
+          if (img) img.src = talent.avatar || "";
+          if (name) name.textContent = talent.name || "";
+          if (role) role.textContent = talent.role || "";
+          if (rate) rate.textContent = talent.rate || "";
+        }
+
+        function openModal(modal) {
+          if (!modal) return;
+          modal.style.display = "flex";
+          document.body.style.overflow = "hidden";
+        }
+
+        function closeModal(modal) {
+          if (!modal) return;
+          modal.style.display = "none";
+          document.body.style.overflow = "";
+        }
+
+        hireButtons.forEach((btn) => {
+          btn.addEventListener("click", function () {
+            const talent = getTalentFromButton(btn);
+            setHireTalent(talent);
+            openModal(hireModal);
+          });
+        });
+
+        scheduleButtons.forEach((btn) => {
+          btn.addEventListener("click", function () {
+            const talent = getTalentFromButton(btn);
+            setScheduleTalent(talent);
+            openModal(scheduleModal);
+          });
+        });
+
+        closeButtons.forEach((btn) => {
+          btn.addEventListener("click", function (e) {
+            const modal = e.target.closest(".modal");
+            closeModal(modal);
+          });
+        });
+
+        [hireModal, scheduleModal].forEach((modal) => {
+          if (!modal) return;
+          modal.addEventListener("click", function (e) {
+            if (e.target === modal) {
+              closeModal(modal);
+            }
+          });
+        });
+
+        document.addEventListener("keydown", function (e) {
+          if (e.key === "Escape") {
+            if (hireModal && hireModal.style.display === "flex")
+              closeModal(hireModal);
+            if (scheduleModal && scheduleModal.style.display === "flex")
+              closeModal(scheduleModal);
+          }
+        });
+
+        if (hireForm) {
+          hireForm.addEventListener("submit", function (e) {
+            e.preventDefault();
+            if (!hireForm.checkValidity()) {
+              hireForm.reportValidity();
+              return;
+            }
+            const originalText = hireSubmitBtn.textContent;
+            hireSubmitBtn.disabled = true;
+            hireSubmitBtn.textContent = "Sending...";
+
+            setTimeout(function () {
+              hireSubmitBtn.textContent = "Request Sent ✅";
+              hireForm.reset();
+              setTimeout(function () {
+                hireSubmitBtn.disabled = false;
+                hireSubmitBtn.textContent = originalText;
+                closeModal(hireModal);
+              }, 1200);
+            }, 1200);
+          });
+        }
+      })();
     </script>
   </body>
 </html>
