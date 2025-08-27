@@ -3,7 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Profile Card Grid</title>
+    <title>Profile Card</title>
+
     <!-- Font Awesome for icons -->
     <link
       rel="stylesheet"
@@ -15,6 +16,11 @@
       href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
       rel="stylesheet"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/css/intlTelInput.css"
+    />
+
     <style>
       * {
         margin: 0;
@@ -29,6 +35,9 @@
         min-height: 100vh;
         background: #f5f5f5;
         padding: 0;
+      }
+      .iti.iti--allow-dropdown {
+        width: -webkit-fill-available !important;
       }
 
       /* 🔹 Navbar */
@@ -74,44 +83,6 @@
       .nav-btn:hover {
         background: #752be4;
         box-shadow: 0 0 0 3px #000000;
-      }
-
-      /* 🔹 Responsive Styles */
-      @media (max-width: 992px) {
-        .navbar {
-          /* flex-direction: column; stack items vertically */
-
-          text-align: center;
-          gap: 10px; /* spacing between items */
-        }
-
-        .nav-center-text {
-          font-size: 22px;
-          margin: 10px 0;
-        }
-
-        .nav-btn {
-          padding: 12px 32px;
-          font-size: 16px;
-          border-radius: 20px;
-        }
-      }
-
-      @media (max-width: 600px) {
-        .nav-center-text {
-          font-size: 18px;
-          letter-spacing: 1px;
-        }
-
-        .navbar .logo img {
-          height: 40px;
-        }
-        .nav-btn {
-          padding: 10px 24px;
-          font-size: 14px;
-          border-radius: 18px;
-          max-width: 280px; /* limit size */
-        }
       }
 
       .responsive-heading {
@@ -295,126 +266,6 @@
         display: none;
       }
 
-      /* 🔹 Tablet */
-      @media (max-width: 992px) {
-        .card {
-          flex: 0 0 calc(50% - 20px);
-          max-width: 260px;
-        }
-        .card-body h2 {
-          font-size: 1.1rem;
-        }
-        .card-body p {
-          font-size: 0.85rem;
-        }
-        .stats div {
-          font-size: 13px;
-        }
-        .stats strong {
-          font-size: 15px;
-        }
-      }
-
-      /* 🔹 Mobile - show 1 card at a time */
-      @media (max-width: 600px) {
-        .card {
-          flex: 0 0 90%; /* almost full width */
-
-          width: 30px;
-          height: auto;
-        }
-        .skills {
-          flex-wrap: wrap;
-          gap: 6px;
-        }
-        .skill {
-          font-size: 9px;
-          padding: 5px 8px;
-          flex: unset;
-        }
-        .card-slider {
-          display: flex;
-          overflow-x: auto;
-          scroll-snap-type: x mandatory;
-          gap: 20px;
-          padding: 0 10px;
-          position: relative; /* for buttons to overlay */
-        }
-        .slider-btn.left,
-        .slider-btn.right {
-          position: absolute;
-          top: 50%;
-          transform: translateY(-50%);
-          background: rgba(0, 0, 0, 0.5);
-          padding: 4px;
-          font-size: 22px;
-          border-radius: 50%;
-          z-index: 10;
-          cursor: pointer;
-        }
-
-        .slider-btn.left {
-          left: 10px; /* inside, near the left edge */
-        }
-
-        .slider-btn.right {
-          right: 10px; /* inside, near the right edge */
-        }
-        .viewAll-btn {
-          width: 90%;
-        }
-      }
-
-      /* 📱 Extra small devices (under 400px) */
-      @media (max-width: 420px) {
-        .card {
-          width: 25px;
-          padding: 10px 2px;
-          border-radius: 15px;
-          background: #fff;
-          text-align: center;
-          color: #333;
-          box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-          transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-        .navbar {
-          width: 100%;
-        }
-        .slider-btn.left,
-        .slider-btn.right {
-          padding: 3px; /* smaller padding */
-          font-size: 4vw; /* scale font with screen width */
-        }
-
-        .slider-btn.left {
-          left: 10vw; /* flexible left spacing */
-        }
-
-        .slider-btn.right {
-          right: 10vw; /* flexible right spacing */
-        }
-      }
-
-      /* 📱 Ultra-small devices (under 320px) */
-      @media (max-width: 320px) {
-        .navbar {
-          width: 360px;
-          padding: 20px;
-        }
-        .slider-btn.left,
-        .slider-btn.right {
-          font-size: 3.5vw; /* scale down more */
-          padding: 2px;
-        }
-
-        .slider-btn.left {
-          left: 1.5vw;
-        }
-
-        .slider-btn.right {
-          right: 1.5vw;
-        }
-      }
       .slider-btn {
         position: absolute;
         top: 50%;
@@ -613,7 +464,146 @@
         transform: rotate(90deg);
       }
 
-      /* Responsive modal */
+      /* 🔹 Responsive Styles 
+            --Tablet                */
+      @media (max-width: 992px) {
+        .navbar {
+          /* flex-direction: column; stack items vertically */
+
+          text-align: center;
+          gap: 10px; /* spacing between items */
+        }
+
+        .nav-center-text {
+          font-size: 22px;
+          margin: 10px 0;
+        }
+
+        .nav-btn {
+          padding: 12px 32px;
+          font-size: 16px;
+          border-radius: 20px;
+        }
+        .card {
+          flex: 0 0 calc(50% - 20px);
+          max-width: 260px;
+        }
+        .card-body h2 {
+          font-size: 1.1rem;
+        }
+        .card-body p {
+          font-size: 0.85rem;
+        }
+        .stats div {
+          font-size: 13px;
+        }
+        .stats strong {
+          font-size: 15px;
+        }
+      }
+
+      /* Mobile Responsiveness */
+
+      @media (max-width: 600px) {
+        .nav-center-text {
+          font-size: 18px;
+          letter-spacing: 1px;
+        }
+
+        .navbar .logo img {
+          height: 40px;
+        }
+        .nav-btn {
+          padding: 10px 24px;
+          font-size: 14px;
+          border-radius: 18px;
+          max-width: 280px; /* limit size */
+        }
+
+        .card {
+          flex: 0 0 90%; /* almost full width */
+
+          width: 30px;
+          height: auto;
+        }
+        .skills {
+          flex-wrap: wrap;
+          gap: 6px;
+        }
+        .skill {
+          font-size: 9px;
+          padding: 5px 8px;
+          flex: unset;
+        }
+        .card-slider {
+          display: flex;
+          overflow-x: auto;
+          scroll-snap-type: x mandatory;
+          gap: 20px;
+          padding: 0 10px;
+          position: relative; /* for buttons to overlay */
+        }
+        .slider-btn.left,
+        .slider-btn.right {
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          background: rgba(0, 0, 0, 0.5);
+          padding: 4px;
+          font-size: 22px;
+          border-radius: 50%;
+          z-index: 10;
+          cursor: pointer;
+        }
+
+        .viewAll-btn {
+          width: 90%;
+        }
+      }
+      /* 📱 Extra small devices (under 400px) */
+      @media (max-width: 420px) {
+        .card {
+          width: 25px;
+          padding: 10px 2px;
+          border-radius: 15px;
+          background: #fff;
+          text-align: center;
+          color: #333;
+          box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+          transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .navbar {
+          width: 100%;
+        }
+        .slider-btn.left,
+        .slider-btn.right {
+          padding: 3px; /* smaller padding */
+          font-size: 4vw; /* scale font with screen width */
+        }
+      }
+
+      /* 📱 Ultra-small devices (under 320px) */
+      @media (max-width: 320px) {
+        .navbar {
+          width: 360px;
+          padding: 20px;
+        }
+        .slider-btn.left,
+        .slider-btn.right {
+          font-size: 3.5vw; /* scale down more */
+          padding: 2px;
+        }
+
+        .slider-btn.left {
+          left: 1.5vw;
+        }
+
+        .slider-btn.right {
+          right: 1.5vw;
+        }
+      }
+
+      /* Responsive Modal  */
       @media (max-width: 768px) {
         .modal-content {
           flex-direction: column;
@@ -732,6 +722,24 @@
         color: #7b2ff7;
         font-weight: 600;
       }
+      .review-logos {
+        display: flex;
+        align-items: center;
+        gap: 30px;
+      }
+
+      .review-img {
+        height: 150px;
+        width: auto;
+        border-radius: 8px;
+        object-fit: contain;
+        margin-top: 20px;
+        background-color: white;
+      }
+      /*
+      .review-img.trustpilot {
+        transform: scale(1.2);
+      } */
     </style>
   </head>
 
@@ -984,29 +992,22 @@
             to help you achieve your goals with precision and creativity.
           </p>
 
-          <div class="features">
-            <div class="feature-item">
-              <i class="fas fa-check-circle"></i>
-              <span>Verified Expert Professionals</span>
-            </div>
-            <div class="feature-item">
-              <i class="fas fa-shield-alt"></i>
-              <span>100% Secure Payments</span>
-            </div>
-            <div class="feature-item">
-              <i class="fas fa-clock"></i>
-              <span>Fast Project Delivery</span>
-            </div>
-            <div class="feature-item">
-              <i class="fas fa-headset"></i>
-              <span>Dedicated Support</span>
-            </div>
+          <div class="review-logos">
+            <img
+              src="trustpilotReview.png"
+              alt="Trustpilot Logo"
+              class="review-img trustpilot"
+            />
+            <img
+              src="googleReview.png"
+              alt="Google Reviews"
+              class="review-img"
+            />
           </div>
         </div>
 
         <!-- Right side: Form -->
         <div class="modal-right" style="overflow-y: auto; padding-right: 10px">
-          <h2>Tell Us About Your Project</h2>
           <div class="selected-talent" id="hireSelectedTalent">
             <img id="hireTalentAvatar" src="" alt="Talent avatar" />
             <div class="talent-meta">
@@ -1063,14 +1064,15 @@
               <option>More than $25,000</option>
             </select> -->
 
-            <label for="brief">Project Brief</label>
-            <textarea
-              id="brief"
-              name="brief"
-              rows="5"
-              placeholder="Describe your project goals, timeline, and key requirements..."
+            <!-- Phone Input -->
+            <label for="contact">Contact Number</label>
+            <input
+              type="tel"
+              id="contact"
+              name="contact"
+              placeholder="Enter phone number"
               required
-            ></textarea>
+            />
 
             <button type="submit" id="hireSubmitBtn">Send Request</button>
           </form>
@@ -1097,19 +1099,17 @@
             Pick a time that works for you. We look forward to learning about
             your needs.
           </p>
-          <div class="features">
-            <div class="feature-item">
-              <i class="fas fa-calendar-check"></i>
-              <span>Flexible Time Slots</span>
-            </div>
-            <div class="feature-item">
-              <i class="fas fa-video"></i>
-              <span>Google Meet or Zoom</span>
-            </div>
-            <div class="feature-item">
-              <i class="fas fa-handshake"></i>
-              <span>Free Discovery Call</span>
-            </div>
+          <div class="review-logos">
+            <img
+              src="trustpilotReview.png"
+              alt="Trustpilot Logo"
+              class="review-img"
+            />
+            <img
+              src="googleReview.png"
+              alt="Google Reviews"
+              class="review-img"
+            />
           </div>
         </div>
         <div class="modal-right">
@@ -1120,6 +1120,8 @@
         </div>
       </div>
     </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/js/intlTelInput.min.js"></script>
 
     <script>
       (function () {
@@ -1289,15 +1291,35 @@
                 hireSubmitBtn.textContent = originalText;
                 closeModal(hireModal);
 
-                // 👉 If schedule was requested, open schedule modal after hire
-                if (scheduleAfterHire) {
-                  openModal(scheduleModal);
-                }
+                openModal(scheduleModal);
               }, 1200);
             }, 1200);
           });
         }
       })();
+
+      const input = document.querySelector("#contact");
+
+      // Initialize intlTelInput
+      const iti = window.intlTelInput(input, {
+        initialCountry: "auto",
+        geoIpLookup: function (success, failure) {
+          fetch("https://ipapi.co/json")
+            .then((res) => res.json())
+            .then((data) => success(data.country_code))
+            .catch(() => success("us"));
+        },
+        utilsScript:
+          "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/js/utils.js", // for formatting/validation
+      });
+
+      // Optional: Validation before submit
+      input.form?.addEventListener("submit", function (e) {
+        if (!iti.isValidNumber()) {
+          e.preventDefault();
+          alert("Please enter a valid phone number.");
+        }
+      });
     </script>
   </body>
 </html>
